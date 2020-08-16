@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
             if (firebaseUser == null) {
                 Log.d("Authenticator", "User not authenticated")
 
-                findNavController().navigate(R.id.action_homeFragment_to_registerFragment)
+                findNavController().navigate(R.id.loginFragment)
             } else {
                 Log.d("Authenticator", "User is authenticated!")
             }
