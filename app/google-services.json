@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "655090473683",
+    "firebase_url": "https://shmecipe.firebaseio.com",
+    "project_id": "shmecipe",
+    "storage_bucket": "shmecipe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655090473683:android:9564bd9acad003bf759226",
+        "android_client_info": {
+          "package_name": "com.trystan.shmecipe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "655090473683-1margcjdv4svobgmv0ai0v28r3joprfn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCImQw2ho7E9p8WavvsqWtJ3mSqeyfflcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "655090473683-1margcjdv4svobgmv0ai0v28r3joprfn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
