@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
@@ -53,6 +54,19 @@ class HomeFragment : Fragment() {
 
             findNavController().navigate(action)
         }
+
+        binding.recipeSelect.setSelection(0,false)
+        binding.recipeSelect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                Log.d("ItemClick", "Clicked item ${position}")
+            }
+
+        }
+
 
         db.collection("recipes")
             .get()

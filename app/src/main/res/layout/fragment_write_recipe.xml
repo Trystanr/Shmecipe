@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:ems="10"
-            android:hint="Main Heading"
+            android:hint="Recipe Name"
             android:inputType="textPersonName"
             android:textSize="36sp"
             app:layout_constraintTop_toBottomOf="@+id/PublishRecipe"
@@ -29,8 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:ems="10"
-            android:hint="Sub Heading"
-            android:inputType="textPersonName"
+            android:hint="Ingredients"
+            android:inputType="textMultiLine"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/recipeMainHeading"
             app:layout_constraintStart_toStartOf="@+id/recipeMainHeading"
@@ -43,7 +43,7 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="Body"
+            android:hint="Instructions"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/recipeSubHeading"
@@ -69,6 +69,17 @@
             android:drawableStart="@drawable/recipe_post_cancel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/recipeSelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:entries="@array/categories"
+            app:layout_constraintTop_toBottomOf="@+id/recipeBodyCopy"
+            tools:layout_editor_absoluteX="1dp" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

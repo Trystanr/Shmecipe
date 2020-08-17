@@ -10,11 +10,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Spinner
+            android:id="@+id/recipeSelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:entries="@array/categories"
+            app:layout_constraintBottom_toTopOf="@+id/allRecipeRecyclerView"
+            app:layout_constraintTop_toBottomOf="@+id/recipeBodyCopy"
+            tools:layout_editor_absoluteX="1dp"
+            android:padding="20dp"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/allRecipeRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="68dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="@+id/recipeSelect"
+            tools:layout_editor_absoluteX="0dp"
             tools:listitem="@layout/fragment_all_recipe_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
