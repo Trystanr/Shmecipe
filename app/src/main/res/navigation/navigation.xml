@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_writeRecipeFragment"
             app:destination="@id/writeRecipeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recipeItemDetailFragment"
+            app:destination="@id/recipeItemDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -49,5 +52,17 @@
         <action
             android:id="@+id/action_writeRecipeFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeItemDetailFragment"
+        android:name="com.trystan.shmecipe.RecipeItemDetailFragment"
+        android:label="fragment_recipe_item_detail"
+        tools:layout="@layout/fragment_recipe_item_detail" >
+        <action
+            android:id="@+id/action_recipeItemDetailFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="recipeid"
+            app:argType="string" />
     </fragment>
 </navigation>

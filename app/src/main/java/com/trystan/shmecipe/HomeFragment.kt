@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -44,11 +45,23 @@ class HomeFragment : Fragment() {
 
         binding.allRecipeRecyclerView.adapter = adapter
 
+        adapter.setOnItemClickListener { item, view ->
+            val recipeItem = item as RecipeItem
+            Log.d("ItemClick", "ID: ${recipeItem.recipeItem.id}")
+
+            val action = HomeFragmentDirections.actionHomeFragmentToRecipeItemDetailFragment(recipeItem.recipeItem.id)
+
+            findNavController().navigate(action)
+        }
+
         db.collection("recipes")
             .get()
             .addOnSuccessListener {
-                for (blog in it) {
-                    val resultRecipeItem = blog.toObject<RecipePost>()
+                for (recipe in it) {
+                    val resultRecipeItem = recipe.toObject<RecipePost>()
+
+                    resultRecipeItem.id = recipe.id
+
                     Log.d("recipe", "${resultRecipeItem}")
                     adapter.add(RecipeItem(resultRecipeItem))
                 }
@@ -78,7 +91,7 @@ class HomeFragment : Fragment() {
 }
 
 
-class RecipeItem(private val recipeItem: RecipePost): Item() {
+class RecipeItem(val recipeItem: RecipePost): Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.mainHeading.text = recipeItem.title
         viewHolder.subHeading.text = recipeItem.subheading
