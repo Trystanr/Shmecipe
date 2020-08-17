@@ -29,7 +29,7 @@ class LoginFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
         binding.loginSubmit.setOnClickListener {
-            auth.signInWithEmailAndPassword(binding.loginEmail.text.toString().trim(), binding.loginPassword.toString().trim())
+            auth.signInWithEmailAndPassword(binding.loginEmail.text.toString().trim(), binding.loginPassword.text.toString().trim())
                 .addOnSuccessListener {
                     Log.d("Authenticator", "User logged in successfully")
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
