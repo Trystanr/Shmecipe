@@ -10,21 +10,50 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.trystan.shmecipe.data.RecipePost
 import com.trystan.shmecipe.databinding.FragmentHomeBinding
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import com.xwray.groupie.kotlinandroidextensions.Item
+import kotlinx.android.synthetic.main.fragment_all_recipe_item.*
+
 
 class HomeFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
     private lateinit var binding: FragmentHomeBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Set up binding before anything else
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
         auth = Firebase.auth
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        db = Firebase.firestore
+
+        // Groupie adapter
+        var adapter = GroupAdapter<GroupieViewHolder>()
+
+        binding.allRecipeRecyclerView.adapter = adapter
+
+        db.collection("recipes")
+            .get()
+            .addOnSuccessListener {
+                for (blog in it) {
+                    val resultRecipeItem = blog.toObject<RecipePost>()
+                    Log.d("recipe", "${resultRecipeItem}")
+                    adapter.add(RecipeItem(resultRecipeItem))
+                }
+            }
+
 
         auth.addAuthStateListener { firebaseAuth ->
             val firebaseUser = firebaseAuth.currentUser
@@ -46,4 +75,15 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+}
+
+
+class RecipeItem(private val recipeItem: RecipePost): Item() {
+    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+        viewHolder.mainHeading.text = recipeItem.title
+        viewHolder.subHeading.text = recipeItem.subheading
+        viewHolder.timeStamp.text = recipeItem.timestamp.toDate().toString()
+    }
+
+    override fun getLayout(): Int = R.layout.fragment_all_recipe_item
 }
