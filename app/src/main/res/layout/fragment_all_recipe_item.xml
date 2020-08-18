@@ -14,32 +14,42 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="match_parent"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:id="@+id/recipeImage"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/mainHeading"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Main Heading"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:ellipsize="end"
                 android:singleLine="true"
+                android:text="Main Heading"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageView" />
+                app:layout_constraintTop_toBottomOf="@+id/recipeImage" />
 
             <TextView
                 android:id="@+id/subHeading"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Sub Heading"
                 android:ellipsize="end"
                 android:singleLine="true"
+                android:text="Sub Heading"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/timeStamp"
                 app:layout_constraintEnd_toEndOf="@+id/mainHeading"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/mainHeading"
                 app:layout_constraintTop_toBottomOf="@+id/mainHeading" />
 
@@ -47,23 +57,13 @@
                 android:id="@+id/timeStamp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="12 July 2020"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                app:layout_constraintEnd_toEndOf="@+id/mainHeading"
-                app:layout_constraintHorizontal_bias="0.517"
-                app:layout_constraintStart_toStartOf="@+id/subHeading" />
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_launcher_background"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subHeading" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

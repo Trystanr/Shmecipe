@@ -11,6 +11,17 @@
         android:padding="15dp"
         >
 
+        <ImageButton
+            android:id="@+id/recipeUploadImage"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="60dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/recipe_image_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/recipeMainHeading"
             android:layout_width="match_parent"
@@ -20,7 +31,7 @@
             android:hint="Recipe Name"
             android:inputType="textPersonName"
             android:textSize="36sp"
-            app:layout_constraintTop_toBottomOf="@+id/PublishRecipe"
+            app:layout_constraintTop_toBottomOf="@+id/recipeUploadImage"
             tools:layout_editor_absoluteX="4dp" />
 
         <EditText

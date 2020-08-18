@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_recipeItemDetailFragment"
             app:destination="@id/recipeItemDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recipeCategoryFragment"
+            app:destination="@id/recipeCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -63,6 +66,18 @@
             app:destination="@id/homeFragment" />
         <argument
             android:name="recipeid"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeCategoryFragment"
+        android:name="com.trystan.shmecipe.RecipeCategoryFragment"
+        android:label="fragment_recipe_category"
+        tools:layout="@layout/fragment_recipe_category" >
+        <action
+            android:id="@+id/action_recipeCategoryFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="category"
             app:argType="string" />
     </fragment>
 </navigation>

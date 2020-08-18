@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 import com.trystan.shmecipe.data.RecipePost
 import com.trystan.shmecipe.databinding.FragmentHomeBinding
 import com.xwray.groupie.GroupAdapter
@@ -29,7 +31,6 @@ class HomeFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: FragmentHomeBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,14 +56,36 @@ class HomeFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        binding.recipeSelect.setSelection(0,false)
+//        binding.recipeSelect.setSelection(0,false)
         binding.recipeSelect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+
+            var userSelect = -1
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                Log.d("ItemClick", "Clicked item ${position}")
+                // Spinner onItemSelected gets called on init and on view pop
+                Log.d("recipes", "Clicked item ${position}")
+
+                userSelect++
+
+                if (userSelect < 1) {
+                    userSelect++
+                } else {
+                    userSelect = -2
+
+                    val cat = binding.recipeSelect.selectedItem.toString()
+                    Log.d("recipes", "${cat}")
+
+                    binding.recipeSelect.setSelection(0,false)
+
+                    val action = HomeFragmentDirections.actionHomeFragmentToRecipeCategoryFragment("chicken")
+                    findNavController().navigate(action)
+                }
+
+
             }
 
         }
@@ -110,6 +133,10 @@ class RecipeItem(val recipeItem: RecipePost): Item() {
         viewHolder.mainHeading.text = recipeItem.title
         viewHolder.subHeading.text = recipeItem.subheading
         viewHolder.timeStamp.text = recipeItem.timestamp.toDate().toString()
+        if (recipeItem.headerImageURL != "" && recipeItem.headerImageURL.isNotEmpty()) {
+            Picasso.get().load(recipeItem.headerImageURL).fit().centerCrop().into(viewHolder.recipeImage)
+        }
+
     }
 
     override fun getLayout(): Int = R.layout.fragment_all_recipe_item
