@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -26,6 +28,8 @@ class RecipeCategoryFragment : Fragment() {
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: FragmentRecipeCategoryBinding
 
+    private val args: RecipeCategoryFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,12 +43,18 @@ class RecipeCategoryFragment : Fragment() {
 
         binding.categoryRecipeRecyclerView.adapter = adapter
 
+        (activity as AppCompatActivity).supportActionBar?.title = args.category.toString()
+
         adapter.setOnItemClickListener { item, view ->
-            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
+            val recipeItem = item as RecipeItem
+
+            val action = RecipeCategoryFragmentDirections.actionRecipeCategoryFragmentToRecipeItemDetailFragment(recipeItem.recipeItem.id)
+
+            findNavController().navigate(action)
         }
 
         db.collection("recipes")
-            .whereEqualTo("category", "Main Dishes")
+            .whereEqualTo("category", args.category.toString())
             .get()
             .addOnSuccessListener {
                 for (recipe in it) {

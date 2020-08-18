@@ -4,95 +4,98 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".WriteRecipeFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout2"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="15dp"
-        >
-
-        <ImageButton
-            android:id="@+id/recipeUploadImage"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/frameLayout2"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="60dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/recipe_image_add"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            >
 
-        <EditText
-            android:id="@+id/recipeMainHeading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:ems="10"
-            android:hint="Recipe Name"
-            android:inputType="textPersonName"
-            android:textSize="36sp"
-            app:layout_constraintTop_toBottomOf="@+id/recipeUploadImage"
-            tools:layout_editor_absoluteX="4dp" />
+            <ImageButton
+                android:id="@+id/recipeUploadImage"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="60dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/recipe_image_add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/recipeSubHeading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:hint="Ingredients"
-            android:inputType="textMultiLine"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/recipeMainHeading"
-            app:layout_constraintStart_toStartOf="@+id/recipeMainHeading"
-            app:layout_constraintTop_toBottomOf="@+id/recipeMainHeading" />
+            <EditText
+                android:id="@+id/recipeMainHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:ems="10"
+                android:hint="Recipe Name"
+                android:inputType="textPersonName"
+                android:textSize="36sp"
+                app:layout_constraintTop_toBottomOf="@+id/recipeUploadImage"
+                tools:layout_editor_absoluteX="4dp" />
 
-        <EditText
-            android:id="@+id/recipeBodyCopy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="Instructions"
-            android:inputType="textMultiLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/recipeSubHeading"
-            app:layout_constraintTop_toBottomOf="@+id/recipeSubHeading" />
+            <EditText
+                android:id="@+id/recipeSubHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="Ingredients"
+                android:inputType="textMultiLine"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/recipeMainHeading"
+                app:layout_constraintStart_toStartOf="@+id/recipeMainHeading"
+                app:layout_constraintTop_toBottomOf="@+id/recipeMainHeading" />
 
-        <TextView
-            android:id="@+id/PublishRecipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="PUBLISH"
-            android:textColor="#009688"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/recipeBodyCopy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Instructions"
+                android:inputType="textMultiLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/recipeSubHeading"
+                app:layout_constraintTop_toBottomOf="@+id/recipeSubHeading" />
 
-        <Button
-            android:id="@+id/cancelRecipePost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00FFFFFF"
-            android:drawableStart="@drawable/recipe_post_cancel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/PublishRecipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="PUBLISH"
+                android:textColor="#009688"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
-            android:id="@+id/recipeSelect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:entries="@array/categories"
-            app:layout_constraintTop_toBottomOf="@+id/recipeBodyCopy"
-            tools:layout_editor_absoluteX="1dp" />
+            <Button
+                android:id="@+id/cancelRecipePost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:drawableStart="@drawable/recipe_post_cancel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/recipeSelect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:entries="@array/categories"
+                app:layout_constraintTop_toBottomOf="@+id/recipeBodyCopy"
+                tools:layout_editor_absoluteX="1dp" />
 
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

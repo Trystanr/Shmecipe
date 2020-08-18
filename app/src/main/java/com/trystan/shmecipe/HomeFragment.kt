@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
@@ -48,6 +49,8 @@ class HomeFragment : Fragment() {
 
         binding.allRecipeRecyclerView.adapter = adapter
 
+        (activity as AppCompatActivity).supportActionBar?.title = "Shmecipe"
+
         adapter.setOnItemClickListener { item, view ->
             val recipeItem = item as RecipeItem
             Log.d("ItemClick", "ID: ${recipeItem.recipeItem.id}")
@@ -82,7 +85,8 @@ class HomeFragment : Fragment() {
 
                     binding.recipeSelect.setSelection(0,false)
 
-                    val action = HomeFragmentDirections.actionHomeFragmentToRecipeCategoryFragment("chicken")
+
+                    val action = HomeFragmentDirections.actionHomeFragmentToRecipeCategoryFragment(resources.getStringArray(R.array.categories)[position])
                     findNavController().navigate(action)
                 }
 

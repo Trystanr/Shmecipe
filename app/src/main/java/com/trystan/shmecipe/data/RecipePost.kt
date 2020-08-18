@@ -4,7 +4,7 @@ import com.google.firebase.Timestamp
 
 data class RecipePost (
     var id: String = "",
-    val userId: String = "",
+    val userID: String = "",
     val timestamp: Timestamp = Timestamp.now(),
     val headerImageURL: String = "",
     val category: String = "",
