@@ -21,7 +21,8 @@
             app:destination="@id/writeRecipeFragment" />
         <action
             android:id="@+id/action_homeFragment_to_recipeItemDetailFragment"
-            app:destination="@id/recipeItemDetailFragment" />
+            app:destination="@id/recipeItemDetailFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
         <action
             android:id="@+id/action_homeFragment_to_recipeCategoryFragment"
             app:destination="@id/recipeCategoryFragment" />
@@ -67,6 +68,9 @@
         <argument
             android:name="recipeid"
             app:argType="string" />
+        <action
+            android:id="@+id/action_recipeItemDetailFragment_to_recipeCategoryFragment"
+            app:destination="@id/recipeCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipeCategoryFragment"
@@ -79,5 +83,8 @@
         <argument
             android:name="category"
             app:argType="string" />
+        <action
+            android:id="@+id/action_recipeCategoryFragment_to_recipeItemDetailFragment"
+            app:destination="@id/recipeItemDetailFragment" />
     </fragment>
 </navigation>

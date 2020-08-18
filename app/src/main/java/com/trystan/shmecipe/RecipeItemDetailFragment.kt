@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso
 import com.trystan.shmecipe.data.RecipePost
 import com.trystan.shmecipe.databinding.FragmentRecipeItemDetailBinding
 import kotlinx.android.synthetic.main.fragment_all_recipe_item.*
+import java.lang.Exception
 
 class RecipeItemDetailFragment : Fragment() {
 
@@ -34,8 +35,6 @@ class RecipeItemDetailFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_item_detail, container, false)
 
-        binding.recipeDetailTitle.text = args.recipeid
-
         db = Firebase.firestore
 
         db.collection("recipes").document(args.recipeid)
@@ -44,15 +43,26 @@ class RecipeItemDetailFragment : Fragment() {
                 val item = it.toObject<RecipePost>()
 
                 binding.recipeDetailTitle.text = item?.title
-                binding.recipeDetailTitle2.text = item?.subheading
-                binding.recipeDetailTitle3.text = item?.timestamp?.toDate().toString()
-                binding.recipeDetailTitle3.text = item?.headerImageURL
-                binding.recipeDetailTitle4.text = item?.body
+                binding.recipeDetailIngredients.text = item?.subheading
+                binding.recipeDetailTimestamp.text = item?.timestamp?.toDate().toString()
+                binding.recipeDetailBody.text = item?.body
+
+                binding.recipeDetailLoading.visibility = View.GONE
 
                 if (item?.headerImageURL != "" && item?.headerImageURL!!.isNotEmpty()) {
-                    Picasso.get().load(item?.headerImageURL).fit().centerCrop().into(binding.imageView2)
-                } else {
+                    Picasso.get().load(item?.headerImageURL).fit().centerCrop().into(binding.recipeDetailImage, object: com.squareup.picasso.Callback {
+                        override fun onSuccess() {
+                            binding.recipeDetailImageLoading.visibility = View.GONE
+                        }
 
+                        override fun onError(e: Exception?) {
+                            binding.recipeDetailImage.visibility = View.GONE
+                            binding.recipeDetailImageLoading.visibility = View.GONE
+                        }
+                    })
+                } else {
+                    binding.recipeDetailImage.visibility = View.GONE
+                    binding.recipeDetailImageLoading.visibility = View.GONE
                 }
             }
             .addOnFailureListener {

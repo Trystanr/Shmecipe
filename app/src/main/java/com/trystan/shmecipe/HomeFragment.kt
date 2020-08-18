@@ -24,6 +24,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.fragment_all_recipe_item.*
+import java.lang.Exception
 
 
 class HomeFragment : Fragment() {
@@ -101,6 +102,8 @@ class HomeFragment : Fragment() {
 
                     Log.d("recipe", "${resultRecipeItem}")
                     adapter.add(RecipeItem(resultRecipeItem))
+
+                    binding.recipeLoading.visibility = View.GONE
                 }
             }
 
@@ -131,10 +134,28 @@ class HomeFragment : Fragment() {
 class RecipeItem(val recipeItem: RecipePost): Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.mainHeading.text = recipeItem.title
-        viewHolder.subHeading.text = recipeItem.subheading
+        viewHolder.subHeading.text = recipeItem.category
         viewHolder.timeStamp.text = recipeItem.timestamp.toDate().toString()
         if (recipeItem.headerImageURL != "" && recipeItem.headerImageURL.isNotEmpty()) {
-            Picasso.get().load(recipeItem.headerImageURL).fit().centerCrop().into(viewHolder.recipeImage)
+            Picasso
+                .get()
+                .load(recipeItem.headerImageURL)
+                .fit().centerCrop()
+                .into(viewHolder.recipeImage,
+                    object: com.squareup.picasso.Callback {
+                        override fun onSuccess() {
+                            viewHolder.loadingCircle.visibility = View.GONE
+                        }
+
+                        override fun onError(e: Exception?) {
+                            viewHolder.recipeImage.visibility = View.GONE
+                            viewHolder.loadingCircle.visibility = View.GONE
+                        }
+                    }
+                )
+        } else {
+            viewHolder.loadingCircle.visibility = View.GONE
+            viewHolder.recipeImage.visibility = View.GONE
         }
 
     }

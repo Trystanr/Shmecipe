@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -32,12 +34,13 @@ class RecipeCategoryFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_category, container, false)
 
         db = Firebase.firestore
+
         var adapter = GroupAdapter<GroupieViewHolder>()
 
         binding.categoryRecipeRecyclerView.adapter = adapter
 
         adapter.setOnItemClickListener { item, view ->
-            Log.d("ItemClicked", "Item ID:")
+            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
         }
 
         db.collection("recipes")
@@ -50,7 +53,7 @@ class RecipeCategoryFragment : Fragment() {
                     resultRecipeItem.id = recipe.id
 
                     Log.d("RecipeItem", "${resultRecipeItem}")
-                    adapter.add(RecipeItemTwo(resultRecipeItem))
+                    adapter.add(RecipeItem(resultRecipeItem))
                 }
             }
             .addOnFailureListener {
@@ -60,14 +63,4 @@ class RecipeCategoryFragment : Fragment() {
         return binding.root
     }
 
-}
-
-class RecipeItemTwo(val recipeItem: RecipePost): Item() {
-    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.mainHeading.text = recipeItem.title
-        viewHolder.subHeading.text = recipeItem.subheading
-        viewHolder.timeStamp.text = recipeItem.timestamp.toDate().toString()
-    }
-
-    override fun getLayout(): Int = R.layout.fragment_all_recipe_item
 }
