@@ -77,6 +77,7 @@ class WriteRecipeFragment : Fragment() {
                     }
                     .addOnSuccessListener {
                         Log.d("recipe", "Successfully posted recipe")
+                        hideKeyboard()
 
                         // Upload image
                         uploadImageToStorage(it.id)
@@ -112,24 +113,27 @@ class WriteRecipeFragment : Fragment() {
 
         val ref = storage.getReference("/images/$fileName")
 
-        ref.putFile(uri)
-            .addOnSuccessListener {
-                ref.downloadUrl
-                    .addOnSuccessListener {
-                        Log.d("recipe", "Image URL: ${it}")
+        if (Uri.EMPTY != uri) {
+            ref.putFile(uri)
+                .addOnSuccessListener {
+                    ref.downloadUrl
+                        .addOnSuccessListener {
+                            Log.d("recipe", "Image URL: ${it}")
 
-                        // Upload image to recipe object
-                        saveImageToRecipe(it.toString(), recipeID)
-                    }
-                    .addOnFailureListener {
-                        Log.d("recipe", "Failed to upload URL: ${it}")
-                        Toast.makeText(context, "Failed to upload image", Toast.LENGTH_SHORT).show()
-                    }
-            }
-            .addOnFailureListener {
-                Log.d("recipe", "Failed to upload URL: ${it}")
-                Toast.makeText(context, "Failed to upload image", Toast.LENGTH_SHORT).show()
-            }
+                            // Upload image to recipe object
+                            saveImageToRecipe(it.toString(), recipeID)
+                        }
+                        .addOnFailureListener {
+                            Log.d("recipe", "Failed to upload URL: ${it}")
+                            Toast.makeText(context, "Failed to upload image", Toast.LENGTH_SHORT).show()
+                        }
+                }
+                .addOnFailureListener {
+                    Log.d("recipe", "Failed to upload URL: ${it}")
+                    Toast.makeText(context, "Failed to upload image", Toast.LENGTH_SHORT).show()
+                }
+        }
+
     }
 
     private fun saveImageToRecipe(imageUrl: String, recipeID: String) {

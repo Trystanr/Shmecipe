@@ -34,11 +34,9 @@ class RecipeCategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_category, container, false)
 
         db = Firebase.firestore
-
         var adapter = GroupAdapter<GroupieViewHolder>()
 
         binding.categoryRecipeRecyclerView.adapter = adapter
@@ -53,6 +51,7 @@ class RecipeCategoryFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        // Only get recipes of category
         db.collection("recipes")
             .whereEqualTo("category", args.category.toString())
             .get()

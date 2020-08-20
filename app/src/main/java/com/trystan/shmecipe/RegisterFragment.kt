@@ -49,6 +49,7 @@ class RegisterFragment : Fragment() {
                         .set(user)
                         .addOnSuccessListener {
                             Log.d("Authentication", "Registered Successfully")
+                            hideKeyboard()
                             findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
                         }
                         .addOnFailureListener {

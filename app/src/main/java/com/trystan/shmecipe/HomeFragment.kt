@@ -51,6 +51,7 @@ class HomeFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.title = "Shmecipe"
 
+        // Go to detail view
         adapter.setOnItemClickListener { item, view ->
             val recipeItem = item as RecipeItem
             Log.d("ItemClick", "ID: ${recipeItem.recipeItem.id}")
@@ -60,7 +61,7 @@ class HomeFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-//        binding.recipeSelect.setSelection(0,false)
+        // Spinner to select category to view
         binding.recipeSelect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
 
             var userSelect = -1
@@ -89,13 +90,11 @@ class HomeFragment : Fragment() {
                     val action = HomeFragmentDirections.actionHomeFragmentToRecipeCategoryFragment(resources.getStringArray(R.array.categories)[position])
                     findNavController().navigate(action)
                 }
-
-
             }
 
         }
 
-
+        // Get list of recipes and add to adapter
         db.collection("recipes")
             .get()
             .addOnSuccessListener {
@@ -111,7 +110,7 @@ class HomeFragment : Fragment() {
                 }
             }
 
-
+        // Check if user authenticated
         auth.addAuthStateListener { firebaseAuth ->
             val firebaseUser = firebaseAuth.currentUser
 
@@ -128,7 +127,6 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_writeRecipeFragment)
         }
 
-        // Inflate the layout for this fragment
         return binding.root
     }
 

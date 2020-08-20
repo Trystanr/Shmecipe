@@ -1,5 +1,7 @@
 package com.trystan.shmecipe
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
@@ -115,19 +117,47 @@ class RecipeItemDetailFragment : Fragment() {
         }
 
         binding.recipeDetailDelete.setOnClickListener {
-            db.collection("recipes").document(args.recipeid)
-                .get()
-                .addOnSuccessListener {
-                    it.reference.delete().addOnSuccessListener {
-                        Toast.makeText(context, "Successfully deleted recipe", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_recipeItemDetailFragment_to_homeFragment)
-                    }
-                }
-                .addOnFailureListener {
-                    Toast.makeText(context, "Error, recipe not deleted", Toast.LENGTH_SHORT).show()
-                }
+            deleteRecipe(args.recipeid)
         }
 
+
+
         return binding.root
+    }
+
+    private fun deleteRecipe(recipeID: String) {
+        lateinit var dialog: AlertDialog
+
+        val builder = AlertDialog.Builder(context)
+
+        builder.setTitle("Delete this post?")
+        builder.setMessage("It will be gone forever (a very long time)")
+
+        val dialogClickListener = DialogInterface.OnClickListener{ _, which ->
+            when(which){
+                DialogInterface.BUTTON_POSITIVE -> {
+                    db.collection("recipes").document(recipeID)
+                        .get()
+                        .addOnSuccessListener {
+                            it.reference.delete().addOnSuccessListener {
+                                Toast.makeText(context, "Successfully deleted recipe", Toast.LENGTH_SHORT).show()
+                                findNavController().navigate(R.id.action_recipeItemDetailFragment_to_homeFragment)
+                            }
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(context, "Error, recipe not deleted", Toast.LENGTH_SHORT).show()
+                        }
+                }
+                DialogInterface.BUTTON_NEGATIVE -> Toast.makeText(context, "Recipe not deleted", Toast.LENGTH_SHORT).show()
+                DialogInterface.BUTTON_NEUTRAL -> Toast.makeText(context, "Recipe not deleted", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        builder.setPositiveButton("YES",dialogClickListener)
+        builder.setNegativeButton("NO",dialogClickListener)
+        builder.setNeutralButton("CANCEL",dialogClickListener)
+
+        dialog = builder.create()
+        dialog.show()
     }
 }
